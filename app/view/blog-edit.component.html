@@ -1,0 +1,42 @@
+<h2 [hidden]="createMode">Edit post</h2>
+<h2 [hidden]="!createMode">Create post</h2>
+<template [ngIf]="wrongId">
+    <div class="panel panel-danger">
+        <div class="panel-heading">Error occurred</div>
+        <div class="panel-body">
+            Blog item with specified ID was not found<br>
+            <a [routerLink]="['List']">Back</a>
+        </div>
+    </div>
+</template>
+<template [ngIf]="!wrongId">
+    <form (ngSubmit)="save()" #blogItemForm="ngForm">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" required [(ngModel)]="model.title" id="title" placeholder="Title" autofocus
+                   ngControl="title" #title="ngForm" maxlength="255">
+            <div [hidden]="title.valid || title.pristine" class="alert alert-danger">
+                Title is required
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="created">Created on</label>
+            <input type="date" class="form-control" required [(ngModel)]="createdDate" id="created"
+                   ngControl="created" #created="ngForm">
+            <div [hidden]="created.valid || created.pristine" class="alert alert-danger">
+                Created is required
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="body">Body</label>
+            <textarea class="form-control" rows="8" maxlength="100000" id="body" required [(ngModel)]="model.body"
+                   ngControl="body" #body="ngForm"></textarea>
+            <div [hidden]="body.valid || body.pristine" class="alert alert-danger">
+                Body is required
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary pull-left"
+                [disabled]="!blogItemForm.form.valid">{{saveLabel}}</button>
+        <a [routerLink]="['List']" class="pull-right">Back</a>
+    </form>
+</template>
