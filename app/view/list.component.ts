@@ -71,7 +71,7 @@ export class ListComponent implements OnInit {
      * @param id
      */
     deleteItem (id) {
-        if (window.confirm("Do you really want to leave?")) {
+        if (window.confirm("Do you really want to delete this item?")) {
             this._blogService.deleteBlogItem(id).then(() => {
                 this.getBlogItems();
             });

@@ -61,8 +61,10 @@ export class BlogDetailComponent {
      * @param id
      */
     deleteItem (id) {
-        this._blogService.deleteBlogItem(id).then(() => {
-            this._router.navigate(['List']);
-        });
+        if (window.confirm("Do you really want to delete this item?")) {
+            this._blogService.deleteBlogItem(id).then(() => {
+                this._router.navigate(['List']);
+            });
+        }
     }
 }
